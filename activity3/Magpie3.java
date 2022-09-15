@@ -53,7 +53,7 @@ public class Magpie3
         }
         return response;
     }
-
+    
     /**
      * Search for one word in phrase. The search is not case
      * sensitive. This method will check that the given goal
@@ -134,7 +134,7 @@ public class Magpie3
      * @return the index of the first occurrence of goal in
      *         statement or -1 if it's not found
      */
-    private int findKeyword(String statement, String goal)
+    public int findKeyword(String statement, String goal)
     {
         return findKeyword(statement, goal, 0);
     }

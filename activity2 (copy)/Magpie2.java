@@ -75,31 +75,7 @@ public class Magpie2
         }
         return response;
     }
-    public int findKeyword(String statement, String goal,
-        int startPos)
-    {
-        String phrase = statement.trim();
-        
-        
-        int psn = phrase.toLowerCase().indexOf(
-        goal.toLowerCase(), startPos);
-        
-        while (psn >= 0)
-        {
-            String before = "", after = "";
-            if (psn > 0)
-            {
-                before = phrase.substring(
-                    psn + goal.length(),
-                    psn + goal.length() + 1)
-                    .toLowerCase();
-            }
-        if (psn + goal.length() < phrase.length())
-        {
-            
-        }
-        }
-    }
+
     /**
      * Pick a default response to use if nothing else fits.
      * @return a non-committal string
