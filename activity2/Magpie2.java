@@ -33,41 +33,45 @@ public class Magpie2
     public String getResponse(String statement)
     {
         String response = "";
-        if (statement.indexOf("no") >= 0)
+        if (statement.length() == 0)
+        {
+            response = "Say something, please.";
+        }
+        if (findKeyword(statement, "no") >= 0)
         {
             response = "Why so negative?";
         }
-        else if (statement.indexOf("mother") >= 0
-                || statement.indexOf("father") >= 0
-                || statement.indexOf("sister") >= 0
-                || statement.indexOf("brother") >= 0)
+        else if (findKeyword(statement, "mother") >= 0
+                || findKeyword(statement, "father") >= 0
+                || findKeyword(statement, "sister") >= 0
+                || findKeyword(statement, "brother") >= 0)
         {
             response = "Tell me more about your family.";
         }
-        else if (statement.indexOf("dog") >= 0
-                || statement.indexOf("cat") >= 0)
+        else if (findKeyword(statement, "dog") >= 0
+                || findKeyword(statement, "cat") >= 0)
         {
             response = "Tell me more about your pets.";
         }
-        else if (statement.indexOf("Mr. Jaffe") >= 0)
+        else if (findKeyword(statement, "Mr. Jaffe") >= 0)
         {
             response = "Wow Mr. Jaffe sounds like a great teacher!";
         }
-        else if (statement.indexOf("Hello") >= 0)
+        else if (findKeyword(statement, "Hello") >= 0)
         {
             response = "Hello!. I am a chatbot!";
         }
-        else if (statement.indexOf("name") >= 0)
+        else if (findKeyword(statement, "name") >= 0)
         {
             response = "I am a computer. I have no name";
         }
-        else if (statement.indexOf("alive") >= 0)
+        else if (findKeyword(statement, "alive") >= 0)
         {
             response = "I am not alive, but I am not dead either";
         }
         else if ((statement.trim()).length() > 0)
         {
-            response = "Please enter something more than a character";
+            response = getRandomResponse();
         }
         else
         {
@@ -87,18 +91,37 @@ public class Magpie2
         while (psn >= 0)
         {
             String before = "", after = "";
-            if (psn > 0)
+            if (psn > 0 )
+            {
+                before = phrase.substring(psn - 1, psn)
+                    .toLowerCase();
+            }
+            if (psn + goal.length() < phrase.length())
             {
                 before = phrase.substring(
                     psn + goal.length(),
                     psn + goal.length() + 1)
                     .toLowerCase();
             }
-        if (psn + goal.length() < phrase.length())
-        {
+        if (((before.compareTo("a") < 0) || (before
+            .compareTo("z") > 0))
             
+            && ((after.compareTo("a") < 0) || (after
+                .compareTo("z") > 0)))
+        {
+            return psn;
         }
+        psn = phrase.indexOf(goal.toLowerCase(),
+            psn + 1);
         }
+        return -1;
+        
+        
+    }
+    
+    public int findKeyword(String statement, String goal)
+    {
+        return findKeyword(statement, goal, 0);
     }
     /**
      * Pick a default response to use if nothing else fits.

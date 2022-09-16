@@ -89,13 +89,13 @@ public class Magpie3
             if (psn > 0)
             {
                 before = phrase.substring(psn - 1, psn)
-                        .toLowerCase();
+                    .toLowerCase();
             }
             if (psn + goal.length() < phrase.length())
             {
                 after = phrase.substring(
-                        psn + goal.length(),
-                        psn + goal.length() + 1)
+                    psn + goal.length(),
+                    psn + goal.length() + 1)
                         .toLowerCase();
             }
 
