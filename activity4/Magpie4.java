@@ -73,9 +73,6 @@ public class Magpie4
             }
             else
             {
-               
-                
-                
                 psn = findKeyword(statement, "i", 0);
                 
                 if (psn >= 0
