@@ -14,7 +14,7 @@ import java.util.Random;
  * @author Laurie White
  * @version April 2012
  */
-public class Magpie5
+public class MyChatbot
 {
     /**
      * Get a default greeting     
@@ -22,7 +22,7 @@ public class Magpie5
      */    
     public String getGreeting()
     {
-        return "Hello, let's talk.";
+        return "Hello, I'm Rita, let's talk.";
     }
     
     /**
@@ -35,24 +35,32 @@ public class Magpie5
     public String getResponse(String statement)
     {
         String response = "";
+        int ageAsk = 0;
         if (statement.length() == 0)
         {
             response = "Say something, please.";
         }
-
-        else if (findKeyword(statement, "no") >= 0)
+        else if (findKeyword(statement, "age") >= 0
+            || findKeyword(statement, "old") >= 0)
         {
-            response = "Why so negative?";
+            response = "I'm 90 years old, how old are you?";
+            ageAsk = 1;
         }
-        else if (findKeyword(statement, "mother") >= 0
-            ||  findKeyword(statement, "father") >= 0
-            ||  findKeyword(statement, "brother") >= 0
-            ||  findKeyword(statement, "sister") >= 0)
+        else if (findKeyword(statement, "married") >= 0
+            ||  findKeyword(statement, "husband") >= 0
+            ||  findKeyword(statement, "spouse") >= 0
+            ||  findKeyword(statement, "wife") >= 0)
             
         {
-            response = "Tell me more about your family.";
+            response = "I used to have a husband. His name was Leonard. He died 10 years ago";
         }
-
+        else if (findKeyword(statement, "award") >= 0
+            || findKeyword(statement, "famous") >= 0
+            || findKeyword(statement, "trophy") >= 0)
+        {
+            response = "I'm famous for winning a Tony, Emmy, Oscar, Grammy, and even the presidential medal of freedom";
+        }
+        
         // Responses which require transformations
         else if (findKeyword(statement, "I want to", 0) >= 0)
         {
@@ -63,7 +71,23 @@ public class Magpie5
         {
             response = transformIWantStatement(statement);
         }
-
+        else if (findKeyword(statement, "no") >= 0)
+        {
+            response = "Why so negative?";
+        }
+        else if (indexOf("1", 0) >= 0
+            || indexOf("2", 0) >= 0
+            || indexOf("3", 0) >= 0
+            || indexOf("4", 0) >= 0
+            || indexOf("5", 0) >= 0
+            || indexOf("6", 0) >= 0
+            || indexOf("7", 0) >= 0
+            || indexOf("8", 0) >= 0
+            || indexOf(0, "9") >= 0
+            && ageAsk == 1)
+        {
+            
+        }
         else
         {
 
@@ -139,7 +163,7 @@ public class Magpie5
         }
         int psn = findKeyword (statement, "I want", 0);
         String restOfStatement = statement.substring(psn + 6).trim();
-        return "Would you really be happy if you had " + restOfStatement + "?";
+        return "Would you really be happy if you had " + restOfStatement + "? I wouldn't want " + restOfStatement + ".";
     }
     
     /**
