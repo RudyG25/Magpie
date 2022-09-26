@@ -75,18 +75,9 @@ public class MyChatbot
         {
             response = "Why so negative?";
         }
-        else if (indexOf("1", 0) >= 0
-            || indexOf("2", 0) >= 0
-            || indexOf("3", 0) >= 0
-            || indexOf("4", 0) >= 0
-            || indexOf("5", 0) >= 0
-            || indexOf("6", 0) >= 0
-            || indexOf("7", 0) >= 0
-            || indexOf("8", 0) >= 0
-            || indexOf(0, "9") >= 0
-            && ageAsk == 1)
+        else if (ageAsk == 1)
         {
-            
+            response = ageResponse(statement);
         }
         else
         {
@@ -189,6 +180,26 @@ public class MyChatbot
         
         String restOfStatement = statement.substring(psnOfYou + 3, psnOfMe).trim();
         return "What makes you think that I " + restOfStatement + " you?";
+    }
+    
+    public static void main(String[] args)
+    {
+        statement = statement.trim();
+        Boolean flag=true;
+        for(int a=0;statement.length();a++)
+        {
+            if(a==0 && statement.charAt(a) == '-')
+                continue;
+            if( !Character.isDigit(statement.charAt(a)))
+                flag=false;
+        }
+        if(flag)
+        {
+            response = (statement + " is a great age!");
+        }
+            
+        
+        
     }
     
     /**
