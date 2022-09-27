@@ -46,6 +46,28 @@ public class MyChatbot
             response = "I'm 90 years old, how old are you?";
             ageAsk = 1;
         }
+        else if (findKeyword(statement, "hi") >= 0
+            || findKeyword(statement, "hello") >= 0)
+        {
+            response = "Hi, my name is Rita how are you";
+        }
+        else if (findKeyword(statement, "where") >= 0)
+        {
+            int psn = findKeyword(statement, "you", 0);
+            
+            if (psn >=0)
+            {
+                response = "I was born in Puerto Rico, but currently live in New York";
+            }
+            else
+            {
+                response = getRandomResponse();
+            }
+        }
+        else if (findKeyword(statement, "alive") >= 0)
+        {
+            response = "Yes I'm alive, for now";
+        }
         else if (findKeyword(statement, "married") >= 0
             ||  findKeyword(statement, "husband") >= 0
             ||  findKeyword(statement, "spouse") >= 0
@@ -53,6 +75,19 @@ public class MyChatbot
             
         {
             response = "I used to have a husband. His name was Leonard. He died 10 years ago";
+        }
+        else if (findKeyword(statement, "play") >= 0
+            || findKeyword(statement, "plays") >= 0
+            || findKeyword(statement, "theatre") >= 0
+            || findKeyword(statement, "movie") >= 0
+            || findKeyword(statement, "film") >= 0
+            || findKeyword(statement, "production") >= 0
+            || findKeyword(statement, "movies") >= 0
+            || findKeyword(statement, "cinema") >= 0
+            || findKeyword(statement, "films") >= 0
+            || findKeyword(statement, "works") >= 0)
+        {
+            response = "I have been in many productions, the big one being Singin' in the rain, in 1952";
         }
         else if (findKeyword(statement, "award") >= 0
             || findKeyword(statement, "famous") >= 0
@@ -71,13 +106,29 @@ public class MyChatbot
         {
             response = transformIWantStatement(statement);
         }
+        else if (findKeyword(statement, "birthday", 0) >= 0)
+        {
+            response = "My birthday is December 11th, 1931. I'm 90 years old!";
+        }
         else if (findKeyword(statement, "no") >= 0)
         {
-            response = "Why so negative?";
+            response = "Why so negative? Watch my documentary it will inspire you!";
+        }
+        else if (findKeyword(statement, "children") >= 0
+            || findKeyword(statement, "child") >= 0
+            || findKeyword(statement, "daughter") >= 0
+            || findKeyword(statement, "kids") >= 0)
+        {
+            response = "I have one daughter, Fernanda. She's an actor juts like me.";
         }
         else if (ageAsk == 1)
         {
-            response = ageResponse(statement);
+            response = "You're so young!";
+            ageAsk = 0;
+        }
+        else if (findKeyword(statement, "Rita") >= 0)
+        {
+            response = "yes? That's my name";
         }
         else
         {
@@ -90,6 +141,11 @@ public class MyChatbot
                     && findKeyword(statement, "me", psn) >= 0)
             {
                 response = transformYouMeStatement(statement);
+            }
+            else if (psn >= 0
+                    && findKeyword(statement, "how", psn) >= 0)
+            {
+                response = "I'm doing fine for 90 year old.";
             }
             else
             {
@@ -180,26 +236,6 @@ public class MyChatbot
         
         String restOfStatement = statement.substring(psnOfYou + 3, psnOfMe).trim();
         return "What makes you think that I " + restOfStatement + " you?";
-    }
-    
-    public static void main(String[] args)
-    {
-        statement = statement.trim();
-        Boolean flag=true;
-        for(int a=0;statement.length();a++)
-        {
-            if(a==0 && statement.charAt(a) == '-')
-                continue;
-            if( !Character.isDigit(statement.charAt(a)))
-                flag=false;
-        }
-        if(flag)
-        {
-            response = (statement + " is a great age!");
-        }
-            
-        
-        
     }
     
     /**

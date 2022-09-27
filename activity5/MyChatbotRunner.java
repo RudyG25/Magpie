@@ -7,7 +7,7 @@ import java.util.Scanner;
  * @author Laurie White
  * @version April 2012
  */
-public class MagpieRunner5
+public class MyChatbotRunner
 {
 
     /**
@@ -15,7 +15,7 @@ public class MagpieRunner5
      */
     public static void main(String[] args)
     {
-        Magpie5 maggie = new Magpie5();
+        MyChatbot maggie = new MyChatbot();
         
         System.out.println (maggie.getGreeting());
         Scanner in = new Scanner (System.in);
