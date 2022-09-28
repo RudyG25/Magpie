@@ -32,13 +32,27 @@ public class MyChatbot
      *            the user statement
      * @return a response based on the rules given
      */
+    
+    int ageAsk = 0;
+    int nameAsk = 0;
+    String name = "";
+    String restOfStatement = "";
     public String getResponse(String statement)
     {
         String response = "";
-        int ageAsk = 0;
         if (statement.length() == 0)
         {
             response = "Say something, please.";
+        }
+        else if (ageAsk == 1)
+        {
+            response = "You're so young!";
+            ageAsk = 0;
+        }
+        else if (nameAsk == 1)
+        {
+            response = getName(statement);
+            nameAsk = 0;
         }
         else if (findKeyword(statement, "age") >= 0
             || findKeyword(statement, "old") >= 0)
@@ -64,9 +78,16 @@ public class MyChatbot
                 response = getRandomResponse();
             }
         }
-        else if (findKeyword(statement, "alive") >= 0)
+        else if (findKeyword(statement, "name") >= 0)
         {
-            response = "Yes I'm alive, for now";
+            response = "My name's Rita, what's yours?";
+            nameAsk = 1;
+        }
+        else if (findKeyword(statement, "alive") >= 0
+            || findKeyword(statement, "dead") >= 0
+            || findKeyword(statement, "death") >= 0)
+        {
+            response = "I'm alive, for now";
         }
         else if (findKeyword(statement, "married") >= 0
             ||  findKeyword(statement, "husband") >= 0
@@ -107,6 +128,7 @@ public class MyChatbot
             response = transformIWantStatement(statement);
         }
         else if (findKeyword(statement, "birthday", 0) >= 0)
+
         {
             response = "My birthday is December 11th, 1931. I'm 90 years old!";
         }
@@ -121,10 +143,10 @@ public class MyChatbot
         {
             response = "I have one daughter, Fernanda. She's an actor juts like me.";
         }
-        else if (ageAsk == 1)
+        
+        else if (findKeyword(statement, "real") >= 0)
         {
-            response = "You're so young!";
-            ageAsk = 0;
+            response = "I'm not real, I'm a chatbot.";
         }
         else if (findKeyword(statement, "Rita") >= 0)
         {
@@ -143,10 +165,31 @@ public class MyChatbot
                 response = transformYouMeStatement(statement);
             }
             else if (psn >= 0
-                    && findKeyword(statement, "how", psn) >= 0)
+                    && findKeyword(statement, "how", 0) >= 0)
             {
-                response = "I'm doing fine for 90 year old.";
+                response = "Old but fine, how are you?";
             }
+            else if (psn >= 0
+                    && findKeyword(statement, "born", 0) >= 0)
+                    {
+                        if (findKeyword(statement, "when", 0) >= 0)
+                        {
+                            response = "I was born December 11th, 1931";
+                        }
+                        else if (findKeyword(statement, "where", 0) >= 0)
+                        {
+                            response = "I was born in Humacao, Puerto Rico";
+                        }
+                        else if (findKeyword(statement, "why", 0) >= 0)
+                        {
+                            response = "I don't know why I was born, do you?";
+                        }
+                        else 
+                        {
+                            response = getRandomResponse();
+                        }
+                    }
+                    
             else
             {
                 //  Part of student solution
@@ -212,6 +255,41 @@ public class MyChatbot
         String restOfStatement = statement.substring(psn + 6).trim();
         return "Would you really be happy if you had " + restOfStatement + "? I wouldn't want " + restOfStatement + ".";
     }
+    
+    private String getName(String statement)
+    {
+        statement = statement.trim();
+        String lastChar = statement.substring(statement
+                .length() - 1);
+        if (lastChar.equals("."))
+        {
+            statement = statement.substring(0, statement
+                    .length() - 1);
+                }
+        if (findKeyword(statement, "name", 0) >= 0)
+            {
+                int psn = findKeyword(statement, "is", 0);
+                if (psn < 0)
+                {
+                    psn = findKeyword(statement, "name", 0);
+                    String name = statement.substring(psn + 4).trim();
+                    restOfStatement = name + ", what a beautiful name.";
+                }
+                else 
+                {
+                    String name = statement.substring(psn + 2).trim();
+                    restOfStatement = name + ", what a beautiful name.";
+                }
+            }
+            else
+            {
+                String name = statement.trim();
+                restOfStatement = name +", what a beautiful name";
+                
+            }
+            return restOfStatement;
+        }
+    
     
     /**
      * Take a statement with "you <something> me" and transform it into 
